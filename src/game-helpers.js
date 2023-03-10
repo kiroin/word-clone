@@ -53,3 +53,33 @@ export function checkGuess(guess, answer) {
 
   return result;
 }
+
+export function checkGuessForWin(checkedGuess) {
+  // checks all characters for correct;
+  return checkedGuess.every(char => char.status === 'correct');
+}
+
+// on submit of each guess, check letter success
+// receive guess, letterStatus, for each letter in guess, progressively overwrite status if misplaced, or incorrect for each letter
+export function checkLetterStatus(guess, letterStatus) {
+  let nextLetterStatus = { ...letterStatus };
+  const statusValueMap = [
+    'default', 'incorrect', 'misplaced', 'correct'
+  ];
+  guess.forEach(char => {
+    let letter = char.letter;
+    if(char.status === undefined) {
+      return
+    }
+    let statusValue = statusValueMap.findIndex(status => status === char.status);
+    let keyStatusValue = statusValueMap.findIndex(status => status === nextLetterStatus[letter]);
+    let newStatusValue = Math.max(statusValue, keyStatusValue);
+    if(newStatusValue > 0) {
+      nextLetterStatus[letter] = statusValueMap[newStatusValue];
+    }
+
+
+  });
+
+  return nextLetterStatus;
+}
