@@ -7,21 +7,29 @@ function Banner({ type, numGuesses, answer, newGame }) {
         <strong>Congratulations!</strong> Got it in
         <strong>{` ${numGuesses} guesses`}</strong>.
       </p>
-      <button onClick={newGame}>New Game</button>
+      <button
+        className="new-game"
+        onClick={newGame}>
+        New Game
+      </button>
     </div>
   );
 
   const sadBanner = (
     <div className="sad banner">
       <p>Sorry, the correct answer is <strong>{answer}</strong>.</p>
-      <button onClick={newGame}>New Game</button>
+      <button
+        className="new-game"
+        onClick={newGame}>
+        New Game
+      </button>
     </div>
   );
 
   let content = (<></>);
   if (type === 'won') {
     content = happyBanner;
-  } else if (type == 'lost') {
+  } else if (type === 'lost') {
     content = sadBanner;
   }
 
